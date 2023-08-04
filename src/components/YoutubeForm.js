@@ -7,7 +7,9 @@ const YoutubeForm = () => {
     const initialValues = {
         name:"",
             email:"",
-            channel:""
+            channel:"",
+            comments:"",
+            
     }
 
     const onSubmit= (values) => {
@@ -18,7 +20,9 @@ const YoutubeForm = () => {
         {
             name: Yup.string().required('Required'),
             email:Yup.string().email('Invalid email format').required('Required'),
-            channel:Yup.string().required('Required')
+            channel:Yup.string().required('Required'),
+            comments:Yup.string().required('required'),
+            address:Yup.string().required()
         }
     )
 
@@ -55,6 +59,37 @@ const YoutubeForm = () => {
                     />
                    <ErrorMessage name='channel'/>
                 </div>
+
+                <div className='form-control'>
+                    <label htmlFor='comments'>Comments</label>
+                    <Field as='textarea' type='text' id='comments' 
+                    name='comments' 
+                    />
+                    {/* <Field component='textarea' type='text' id='comments' 
+                    name='comments' 
+                    /> */}
+                   <ErrorMessage name='comments'/>
+                </div>
+
+                <div className='form-control'>
+                    <label htmlFor='address'>Address</label>
+                    <Field  name='address'>
+                    {
+                        (props) => {
+                            const {field,form,meta} = props
+                            console.log(props)
+                            return <div>
+                                <input type='text' name='address' id='address' {...field}/>
+                                {meta.touched && meta.error ? <div>{meta.error}</div>:null}
+                                </div>
+                        }
+                    }
+                    </Field>
+                   
+                </div>
+
+
+
                 <button type='submit'>Submit</button>
             </Form>
 
